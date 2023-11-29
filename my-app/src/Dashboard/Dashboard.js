@@ -58,6 +58,22 @@ export default function Dashboard() {
     logout();
     navigate("/");
   }
+  const deletePost = async (id) => {
+    await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.status === 200) {
+        setPosts(
+          posts.filter((post) => {
+            return post.id !== id;
+          })
+        );
+      } else {
+        return;
+      }
+    });
+  };
+
   return (
     <div>
       {remaining <= 5 ? (
@@ -81,7 +97,12 @@ export default function Dashboard() {
                   <Card.Text>{post.text}</Card.Text>
                   <Row>
                     <Col className="m-2">
-                      <Button variant="dark">Delete</Button>
+                      <Button
+                        variant="dark"
+                        onClick={() => deletePost(post.id)}
+                      >
+                        Delete
+                      </Button>
                     </Col>
                   </Row>
                 </Card.Body>
