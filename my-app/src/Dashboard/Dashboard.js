@@ -5,13 +5,14 @@ import firebase from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
+import Tabss from "./Tabs";
 import "./Dashboard.css";
 import logo from "../logo.svg";
 
 export default function Dashboard() {
   const [state, setState] = useState("Active");
   const [count, setCount] = useState(0);
-  const [remaining, setRemaining] = useState(0);
+  const [remaining, setRemaining] = useState(6);
   const { logout } = useAuth();
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ export default function Dashboard() {
 
   return (
     <div>
+      <Tabss />
       {remaining <= 5 ? (
         <Alert variant="danger">
           Session will be closed soon due to inactivity!
