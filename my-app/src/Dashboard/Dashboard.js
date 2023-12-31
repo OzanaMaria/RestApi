@@ -1,4 +1,5 @@
 import axios from "axios";
+import React from "react";
 import { Alert, Button, Card, Row, Col, Placeholder } from "react-bootstrap";
 import { useAuth } from "../Contexts/AuthProvider";
 import firebase from "../firebase";
@@ -10,6 +11,10 @@ import "./Dashboard.css";
 import logo from "../logo.svg";
 
 export default function Dashboard() {
+  const defaultValue = "<img onError=alert('Hacked.') src='invalid.url.com'>";
+  const [value, setValue] = React.useState(defaultValue);
+  const divRef = React.useRef(null);
+  const illegalStrings = ["<", ">", "script", "link", "img", "onError"];
   const [state, setState] = useState("Active");
   const [count, setCount] = useState(0);
   const [remaining, setRemaining] = useState(6);
@@ -77,6 +82,7 @@ export default function Dashboard() {
 
   return (
     <div>
+
       <Tabss />
       {remaining <= 5 ? (
         <Alert variant="danger">
@@ -87,6 +93,30 @@ export default function Dashboard() {
       )}
 
       <div className="container-fluid d-flex justify-content-center flex-container">
+        <Row>
+          {/* verificare a inputului sa nu permita unele cazuri de XSS folosing html tags sau script sau style tags */}
+          <div>
+            <textarea
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            ></textarea>
+            <div>
+              <button
+                onClick={() => {
+                  let validInput = true;
+                  for (let illegalString of illegalStrings) {
+                    validInput = value.includes(illegalString) ? false : true;
+                  }
+                  if (validInput) divRef.current.innerHTML = value;
+                }}
+
+              >
+                Send
+              </button>
+            </div>
+            <div ref={divRef}></div>
+          </div>
+        </Row>
         <Row className="card-list">
           {posts.map((post) => {
             return (
@@ -112,6 +142,7 @@ export default function Dashboard() {
             );
           })}
         </Row>
+
       </div>
     </div>
   );
