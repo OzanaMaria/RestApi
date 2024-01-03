@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,6 +27,14 @@ export default function SignUp() {
             setError("");
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value);
+            const newUser = {
+                email: emailRef.current.value,
+            }
+            axios.post('http://localhost:3000/users', newUser,
+                {
+                    headers: { "Content-Type": "application/json" }
+                }
+            )
             history("/");
         } catch (error) {
             setError(error.message);
@@ -46,7 +55,7 @@ export default function SignUp() {
 
                         <Form className="form-container" onSubmit={handleSubmit}>
                             <Form.Group id='credentials'>
-                                
+
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     type='email'

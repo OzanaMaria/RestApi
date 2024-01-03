@@ -11,7 +11,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
     const { login } = useAuth();
 
     function handleLogIn(e) {
@@ -25,7 +25,7 @@ const navigate = useNavigate();
         try {
             setError("");
             setLoading(true);
-            await login(emailRef.current.value, passwordRef.current.value);
+            // await login(emailRef.current.value, passwordRef.current.value);
             navigate("/dashboard");
 
         } catch (error) {
@@ -50,7 +50,7 @@ const navigate = useNavigate();
                                 <Form.Group id='credentials'>
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
-                                        type='email'
+                                        // type='email'
                                         ref={emailRef}
                                         required
                                     />
