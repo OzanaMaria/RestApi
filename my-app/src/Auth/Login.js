@@ -25,7 +25,7 @@ export default function Login() {
         try {
             setError("");
             setLoading(true);
-            // await login(emailRef.current.value, passwordRef.current.value);
+            await login(emailRef.current.value, passwordRef.current.value);
             navigate("/dashboard");
 
         } catch (error) {
@@ -50,7 +50,7 @@ export default function Login() {
                                 <Form.Group id='credentials'>
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
-                                        // type='email'
+                                        type='email'
                                         ref={emailRef}
                                         required
                                     />
