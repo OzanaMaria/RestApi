@@ -1,13 +1,12 @@
-const db = require('../config/db');
+const db = require("../config/db");
 
 class User {
-    constructor(email) {
-        this.email = email;
-    }
+  constructor(email) {
+    this.email = email;
+  }
 
-    save() {
-
-        let sql = `
+  save() {
+    let sql = `
         INSERT INTO users(
             email
         )
@@ -16,15 +15,14 @@ class User {
         )
         `;
 
-        return db.execute(sql);
-    }
+    return db.execute(sql);
+  }
 
-    static findAll() {
-        let sql = `SELECT * FROM users;`;
-
-        return db.execute(sql);
-    }
-
+  static findAll() {
+    let sql = `SELECT * FROM users;`;
+    console.log("db");
+    return db.execute(sql);
+  }
 }
 
 module.exports = User;
