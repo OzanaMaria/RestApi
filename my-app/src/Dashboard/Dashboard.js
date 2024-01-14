@@ -47,8 +47,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchPost = async () => {
-      let response = await client.get("?_limit=10");
-      setPosts(response.data);
+      // let response = await client.get("?_limit=10");
+      // setPosts(response.data);
+      axios.get("http://localhost:3002/post").then(
+        res => { console.log(res); setPosts(res.data.data) }
+      ).catch(err => console.log("eroare", err))
     };
     fetchPost();
     const interval = setInterval(() => {
